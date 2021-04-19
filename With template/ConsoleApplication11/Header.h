@@ -59,7 +59,7 @@ public:
 		}
 		while (x) 
 		{
-			del();
+			Pop();
 		}
 		comp<T>* d = other.x;
 		while (d->next)
@@ -83,7 +83,7 @@ public:
 		}
 		while (x)
 		{
-			del();
+			Pop();
 		}
 		comp<T>* d = other.x;
 		while (d->next)
@@ -98,19 +98,24 @@ public:
 		}
 		while (other.x)
 		{
-			other.del();
+			other.Pop();
 		}
 	}
 	
-	template<typename T> friend ostream& operator<<(ostream& stream, const Stack<T>* stack);
+	template<typename T> 
+	friend ostream& operator<<(ostream& stream, const Stack<T>* stack);
 	
 	comp<T>* x;
-	void del()
+	T Pop()
 	{
+		T ret;
 		comp<T>* q = x;
+		ret = x->Data;
 		q = x->next;
 		delete x;
 		x = q;
+		q->prev = NULL;
+		return ret;
 	}
 	void check()
 	{
@@ -119,9 +124,10 @@ public:
 			cout << "Empty Stack" << endl;
 		}
 	}
-	void peek()
+	T peek()
 	{
-		cout << x->Data << endl;
+		T ret = x->Data;
+		return ret;
 	}
 	void push(T D)
 	{

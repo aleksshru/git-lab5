@@ -51,7 +51,7 @@ public:
 		}
 		while (x) 
 		{
-			del();
+			Pop();
 		}
 		comp* d = other.x;
 		while (d->next)
@@ -75,7 +75,7 @@ public:
 		}
 		while (x)
 		{
-			del();
+			Pop();
 		}
 		comp* d = other.x;
 		while (d->next)
@@ -90,7 +90,7 @@ public:
 		}
 		while (other.x)
 		{
-			other.del();
+			other.Pop();
 		}
 	}
 	friend ostream &operator<<(ostream &stream, const Stack* instance);
@@ -102,12 +102,15 @@ public:
 		comp* prev;
 	};
 	comp* x;
-	void del()
+	int Pop()
 	{
+		int ret;
 		comp* q = x;
+		ret = x->Data;
 		q = x->next;
 		delete x;
 		x = q;
+		q->prev = NULL;
 	}
 	void check()
 	{
@@ -116,9 +119,11 @@ public:
 			cout << "Empty Stack" << endl;
 		}
 	}
-	void peek()
+	int peek()
 	{
-		cout << x->Data << endl;
+		int ret;
+		ret = x->Data;
+		return ret;
 	}
 	void push(int D)
 	{
